@@ -28,5 +28,7 @@ jobs:
           context: .
           push: true
           tags: ghcr.io/moreiq/fizzy:latest
+          labels: |
+            service=fizzy
           cache-from: type=gha
           cache-to: type=gha,mode=max

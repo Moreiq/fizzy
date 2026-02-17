@@ -1,12 +1,16 @@
 service: fizzy
-image: ghcr.io/moreiq/fizzy
+image: moreiq/fizzy
 
 registry:
   server: ghcr.io
   username: Moreiq
+  password:
+    - KAMAL_REGISTRY_PASSWORD
 
+# KEEP this - Kamal requires it for validation
+# But configure it properly
 builder:
-  remote: false
+  arch: amd64
 
 servers:
   web:
@@ -19,12 +23,17 @@ proxy:
 env:
   clear:
     BASE_URL: https://fizzy.juradocs.com
-    MAILER_FROM_ADDRESS: fizzy@juradocs.com
+    MAILER_FROM_ADDRESS: juradocs@mailo.com
+    SMTP_ADDRESS: mail.mailo.com
+    SMTP_PORT: "587"
+    SMTP_ENABLE_STARTTLS_AUTO: "true"
+    SMTP_AUTHENTICATION: "login"
+    MULTI_TENANT: false
+    SOLID_QUEUE_IN_PUMA: true
   secret:
     - SECRET_KEY_BASE
     - VAPID_PRIVATE_KEY
     - VAPID_PUBLIC_KEY
-    - SMTP_ADDRESS
     - SMTP_USERNAME
     - SMTP_PASSWORD
 
